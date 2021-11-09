@@ -8,10 +8,13 @@ namespace Restaurantes.Models
 {
     public class Venta : Producto
     {
-        [Key]
-        public int IdVenta { get; set; }
-        public int Cantidad { get; set; }
-        public decimal VentaTotal { get; set; }
-        //public int IdProducto { get; set; }
+        [DataType(DataType.Currency)]
+        [Required(ErrorMessage = "You must enter the field {0}")]
+        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
+        public float Cantidad { get; set; }
+
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public decimal VentaTotal { get { return Precio * (decimal)Cantidad; } }
     }
 }

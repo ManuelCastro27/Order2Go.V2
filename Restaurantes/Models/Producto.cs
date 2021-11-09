@@ -14,5 +14,7 @@ namespace Restaurantes.Models
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
         public int IdComercio { get; set; }
+
+        public virtual Restaurante Restaurante { get; set; }
     }
 }

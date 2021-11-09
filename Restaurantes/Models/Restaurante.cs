@@ -13,5 +13,7 @@ namespace Restaurantes.Models
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int Telefono { get; set; }
+
+        public virtual ICollection<Producto> Productos { get; set; }
     }
 }
