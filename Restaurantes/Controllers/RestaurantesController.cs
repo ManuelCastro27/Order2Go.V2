@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Restaurantes.Data;
 using Restaurantes.Models;
 
-namespace Restaurantes.Controller
+namespace Restaurantes.Controllers
 {
     public class RestaurantesController : Controller
     {
