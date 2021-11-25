@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Restaurantes.Data;
-using Restaurantes.Models;
+using Servicios.Data;
+using Servicios.Models;
 
-namespace Restaurantes.Controllers
+namespace Servicios.Controllers
 {
-    public class RestaurantesController : Controller
+    public class ProductosController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RestaurantesController(ApplicationDbContext context)
+        public ProductosController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Restaurantes
+        // GET: Productos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Restaurante.ToListAsync());
+            return View(await _context.Producto.ToListAsync());
         }
 
-        // GET: Restaurantes/Details/5
+        // GET: Productos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Restaurantes.Controllers
                 return NotFound();
             }
 
-            var restaurante = await _context.Restaurante
-                .FirstOrDefaultAsync(m => m.IdRestaurante == id);
-            if (restaurante == null)
+            var producto = await _context.Producto
+                .FirstOrDefaultAsync(m => m.IdProducto == id);
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            return View(restaurante);
+            return View(producto);
         }
 
-        // GET: Restaurantes/Create
+        // GET: Productos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Restaurantes/Create
+        // POST: Productos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRestaurante,Nombre,Descripcion,Telefono")] Restaurante restaurante)
+        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,Descripcion,Precio,IdComercio")] Producto producto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(restaurante);
+                _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(restaurante);
+            return View(producto);
         }
 
-        // GET: Restaurantes/Edit/5
+        // GET: Productos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Restaurantes.Controllers
                 return NotFound();
             }
 
-            var restaurante = await _context.Restaurante.FindAsync(id);
-            if (restaurante == null)
+            var producto = await _context.Producto.FindAsync(id);
+            if (producto == null)
             {
                 return NotFound();
             }
-            return View(restaurante);
+            return View(producto);
         }
 
-        // POST: Restaurantes/Edit/5
+        // POST: Productos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRestaurante,Nombre,Descripcion,Telefono")] Restaurante restaurante)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,Nombre,Descripcion,Precio,IdComercio")] Producto producto)
         {
-            if (id != restaurante.IdRestaurante)
+            if (id != producto.IdProducto)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Restaurantes.Controllers
             {
                 try
                 {
-                    _context.Update(restaurante);
+                    _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RestauranteExists(restaurante.IdRestaurante))
+                    if (!ProductoExists(producto.IdProducto))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Restaurantes.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(restaurante);
+            return View(producto);
         }
 
-        // GET: Restaurantes/Delete/5
+        // GET: Productos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Restaurantes.Controllers
                 return NotFound();
             }
 
-            var restaurante = await _context.Restaurante
-                .FirstOrDefaultAsync(m => m.IdRestaurante == id);
-            if (restaurante == null)
+            var producto = await _context.Producto
+                .FirstOrDefaultAsync(m => m.IdProducto == id);
+            if (producto == null)
             {
                 return NotFound();
             }
 
-            return View(restaurante);
+            return View(producto);
         }
 
-        // POST: Restaurantes/Delete/5
+        // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var restaurante = await _context.Restaurante.FindAsync(id);
-            _context.Restaurante.Remove(restaurante);
+            var producto = await _context.Producto.FindAsync(id);
+            _context.Producto.Remove(producto);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RestauranteExists(int id)
+        private bool ProductoExists(int id)
         {
-            return _context.Restaurante.Any(e => e.IdRestaurante == id);
+            return _context.Producto.Any(e => e.IdProducto == id);
         }
     }
 }

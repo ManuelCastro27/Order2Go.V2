@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Restaurantes.Models.Restaurante>
+﻿@model IEnumerable<Servicios.Models.Producto>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,7 +19,10 @@
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdComercio)
             </th>
             <th></th>
         </tr>
@@ -34,12 +37,15 @@
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
+                @Html.DisplayFor(modelItem => item.Precio)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRestaurante">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRestaurante">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRestaurante">Delete</a>
+                @Html.DisplayFor(modelItem => item.IdComercio)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdProducto">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdProducto">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdProducto">Delete</a>
             </td>
         </tr>
 }
