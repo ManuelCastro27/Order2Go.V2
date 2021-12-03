@@ -9,7 +9,7 @@ namespace ServiciosRestaurantes.Models
     public class Venta : Producto
     {
         [DataType(DataType.Currency)]
-        [Required(ErrorMessage = "You must enter the field {0}")]
+        [Required(ErrorMessage = "Debe ingresar la {0}")]
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public float Cantidad { get; set; }
 

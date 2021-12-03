@@ -46,6 +46,8 @@ namespace ServiciosRestaurantes.Controllers
         // GET: Ventas/Create
         public IActionResult Create()
         {
+            ViewBag.IDRestaurante = new SelectList(_context.Restaurante, "IdRestaurante", "Nombre");
+            ViewBag.IDProducto = new SelectList(_context.Producto, "IdProducto", "Nombre");
             return View();
         }
 
