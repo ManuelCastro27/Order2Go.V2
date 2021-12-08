@@ -10,15 +10,15 @@ using ServiciosRestaurantes.Data;
 namespace ServiciosRestaurantes.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211125213224_migracioninicial")]
-    partial class migracioninicial
+    [Migration("20211206004415_MigracinInicial")]
+    partial class MigracinInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -235,7 +235,7 @@ namespace ServiciosRestaurantes.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdComercio")
+                    b.Property<int>("IdRestaurante")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -244,12 +244,7 @@ namespace ServiciosRestaurantes.Data.Migrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("RestauranteIdRestaurante")
-                        .HasColumnType("int");
-
                     b.HasKey("IdProducto");
-
-                    b.HasIndex("RestauranteIdRestaurante");
 
                     b.ToTable("Producto");
 
@@ -264,15 +259,24 @@ namespace ServiciosRestaurantes.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("Telefono")
+                    b.Property<int?>("ProductoIdProducto")
                         .HasColumnType("int");
 
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("IdRestaurante");
+
+                    b.HasIndex("ProductoIdProducto");
 
                     b.ToTable("Restaurante");
                 });
@@ -282,6 +286,9 @@ namespace ServiciosRestaurantes.Data.Migrations
                     b.HasBaseType("ServiciosRestaurantes.Models.Producto");
 
                     b.Property<float>("Cantidad")
+                        .HasColumnType("real");
+
+                    b.Property<float>("VentaTotal")
                         .HasColumnType("real");
 
                     b.HasDiscriminator().HasValue("Venta");
@@ -338,18 +345,16 @@ namespace ServiciosRestaurantes.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ServiciosRestaurantes.Models.Producto", b =>
-                {
-                    b.HasOne("ServiciosRestaurantes.Models.Restaurante", "Restaurante")
-                        .WithMany("Productos")
-                        .HasForeignKey("RestauranteIdRestaurante");
-
-                    b.Navigation("Restaurante");
-                });
-
             modelBuilder.Entity("ServiciosRestaurantes.Models.Restaurante", b =>
                 {
-                    b.Navigation("Productos");
+                    b.HasOne("ServiciosRestaurantes.Models.Producto", null)
+                        .WithMany("Restaurantes")
+                        .HasForeignKey("ProductoIdProducto");
+                });
+
+            modelBuilder.Entity("ServiciosRestaurantes.Models.Producto", b =>
+                {
+                    b.Navigation("Restaurantes");
                 });
 #pragma warning restore 612, 618
         }

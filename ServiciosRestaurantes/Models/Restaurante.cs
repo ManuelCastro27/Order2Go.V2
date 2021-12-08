@@ -13,7 +13,7 @@ namespace ServiciosRestaurantes.Models
         public int IdRestaurante { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar el {0}")]
-        [StringLength(30, ErrorMessage = "El {0} debe ser menor a {2} y mayor a {1} caracteres", MinimumLength = 4)]
+        [StringLength(50, ErrorMessage = "El {0} debe ser menor a {2} y mayor a {1} caracteres", MinimumLength = 4)]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar el {0}")]
@@ -24,9 +24,9 @@ namespace ServiciosRestaurantes.Models
         [DataType(DataType.PhoneNumber)]
         //[Required(ErrorMessage = "Debe ingresar el {0}")]
         //[Display(Name = "Teléfono")]
-        [RegularExpression(@"^\\(?(\[0-9\]{3})\\)?\[-.●\]?(\[0-9\]{4})\[-.●\]?(\[0-9\]{4})$", ErrorMessage = "El {0} no es un dato valido")]
+        //[RegularExpression(@"^\\(?(\[0-9\]{3})\\)?\[-.●\]?(\[0-9\]{4})\[-.●\]?(\[0-9\]{4})$", ErrorMessage = "El {0} no es un dato valido")]
         public string Telefono { get; set; }
 
-        public virtual ICollection<Producto> Productos { get; set; }
+        //public virtual List<Producto> Productos { get; set; }
     }
 }

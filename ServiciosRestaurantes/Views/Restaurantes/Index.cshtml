@@ -42,9 +42,9 @@
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRestaurante">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRestaurante">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRestaurante">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IdRestaurante" class="btn btn-outline-success">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdRestaurante" class="btn btn-outline-warning">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdRestaurante" class="btn btn-outline-danger">Eliminar</a>
             </td>
         </tr>
 }

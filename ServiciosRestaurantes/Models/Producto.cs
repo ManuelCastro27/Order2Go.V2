@@ -20,8 +20,8 @@ namespace ServiciosRestaurantes.Models
         public decimal Precio { get; set; }
 
         [Display(Name = "Restaurante")]
-        public int IdComercio { get; set; }
+        public int IdRestaurante { get; set; }
 
-        public virtual Restaurante Restaurante { get; set; }
+        public virtual List<Restaurante> Restaurantes { get; set; }
     }
 }

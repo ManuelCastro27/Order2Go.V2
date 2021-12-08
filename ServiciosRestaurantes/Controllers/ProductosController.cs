@@ -22,7 +22,8 @@ namespace ServiciosRestaurantes.Controllers
         // GET: Productos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Producto.ToListAsync());
+            var producto = _context.Producto.Include(r => r.Restaurantes);
+            return View(await producto.ToListAsync());
         }
 
         // GET: Productos/Details/5
@@ -46,6 +47,7 @@ namespace ServiciosRestaurantes.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
+            ViewBag.restaurantes = new SelectList(_context.Restaurante, "IdRestaurante", "Nombre");
             return View();
         }
 
@@ -54,7 +56,7 @@ namespace ServiciosRestaurantes.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,Descripcion,Precio,IdComercio")] Producto producto)
+        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,Descripcion,Precio,IdRestaurante")] Producto producto)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +64,7 @@ namespace ServiciosRestaurantes.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.restaurantes = new SelectList(_context.Restaurante, "IdRestaurante", "Nombre", producto.IdRestaurante);
             return View(producto);
         }
 
@@ -78,6 +81,7 @@ namespace ServiciosRestaurantes.Controllers
             {
                 return NotFound();
             }
+            ViewBag.restaurantes = new SelectList(_context.Restaurante, "IdRestaurante", "Nombre", producto.IdRestaurante);
             return View(producto);
         }
 
@@ -86,7 +90,7 @@ namespace ServiciosRestaurantes.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,Nombre,Descripcion,Precio,IdComercio")] Producto producto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdProducto,Nombre,Descripcion,Precio,IdRestaurante")] Producto producto)
         {
             if (id != producto.IdProducto)
             {
@@ -113,6 +117,7 @@ namespace ServiciosRestaurantes.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.restaurantes = new SelectList(_context.Restaurante, "IdRestaurante", "Nombre", producto.IdRestaurante);
             return View(producto);
         }
 
@@ -148,6 +153,15 @@ namespace ServiciosRestaurantes.Controllers
         private bool ProductoExists(int id)
         {
             return _context.Producto.Any(e => e.IdProducto == id);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
