@@ -4,11 +4,11 @@
     ViewData["Title"] = "Actualizar Restaurante";
 }
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <h2>Actualizar los datos del:</h2>
     </div>
-    <div class="col-sm-6">
-        <h2>Restaurante</h2>
+    <div class="col-sm-8">
+        <h2>Restaurante @Model.Nombre</h2>
     </div>
 </div>
 <hr />
@@ -58,7 +58,7 @@
             </div>
             <hr />
             <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-outline-primary" />
+                <input type="submit" value="Actualizar" class="btn btn-outline-primary" />
                 <a asp-action="Index" class="btn btn-outline-warning">Regresar al listado</a>
             </div>
         </form>

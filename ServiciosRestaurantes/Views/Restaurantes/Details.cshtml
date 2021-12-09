@@ -1,13 +1,11 @@
 ﻿@model ServiciosRestaurantes.Models.Restaurante
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Restaurante";
 }
 
-<h1>Details</h1>
-
+<h1>Detalles del restaurante: @Model.Nombre</h1>
 <div>
-    <h4>Restaurante</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -31,6 +29,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdRestaurante">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.IdRestaurante" class="btn btn-outline-primary">Modificar</a>
+    <a asp-action="Index" class="btn btn-outline-warning">Regresar al listado</a>
 </div>
