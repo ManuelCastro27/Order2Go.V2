@@ -15,6 +15,7 @@ namespace ServiciosRestaurantes.Models
 
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        [Display(Name = "Total Venta")]
         public float VentaTotal { get { return (float)(Precio * (decimal)Cantidad); } set { }}
     }
 }

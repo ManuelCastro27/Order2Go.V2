@@ -22,11 +22,11 @@ namespace ServiciosRestaurantes.Models
         public string Descripcion { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        //[Required(ErrorMessage = "Debe ingresar el {0}")]
-        //[Display(Name = "Teléfono")]
-        //[RegularExpression(@"^\\(?(\[0-9\]{3})\\)?\[-.●\]?(\[0-9\]{4})\[-.●\]?(\[0-9\]{4})$", ErrorMessage = "El {0} no es un dato valido")]
+        [Required(ErrorMessage = "Debe ingresar el {0}")]
+        [Display(Name = "Teléfono")]
+        [RegularExpression(@"^\(([0-9]{3})\)([0-9]{4})[\-]([0-9]{4})$", ErrorMessage = "El número no es un dato valido")]
         public string Telefono { get; set; }
 
-        //public virtual List<Producto> Productos { get; set; }
+        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

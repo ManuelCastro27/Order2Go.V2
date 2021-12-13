@@ -22,7 +22,7 @@ namespace ServiciosRestaurantes.Controllers
         // GET: Productos
         public async Task<IActionResult> Index()
         {
-            var producto = _context.Producto.Include(r => r.Restaurantes);
+            var producto = _context.Producto.Include(r => r.Restaurantes).AsNoTracking();
             return View(await producto.ToListAsync());
         }
 
@@ -34,8 +34,7 @@ namespace ServiciosRestaurantes.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Producto
-                .FirstOrDefaultAsync(m => m.IdProducto == id);
+            var producto = await _context.Producto.Include(r => r.Restaurantes).FirstOrDefaultAsync(m => m.IdProducto == id);
             if (producto == null)
             {
                 return NotFound();
@@ -153,15 +152,6 @@ namespace ServiciosRestaurantes.Controllers
         private bool ProductoExists(int id)
         {
             return _context.Producto.Any(e => e.IdProducto == id);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if(disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

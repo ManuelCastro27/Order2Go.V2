@@ -13,14 +13,14 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="IdRestaurante" class="control-label"></label>
+                <input asp-for="IdRestaurante" class="form-control" />
+                <span asp-validation-for="IdRestaurante" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Cantidad" class="control-label"></label>
                 <input asp-for="Cantidad" class="form-control" />
                 <span asp-validation-for="Cantidad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VentaTotal" class="control-label"></label>
-                <input asp-for="VentaTotal" class="form-control" />
-                <span asp-validation-for="VentaTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -34,24 +34,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
+                <input asp-for="Precio" class="form-control" Enable="false" />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdRestaurante" class="control-label"></label>
-                <input asp-for="IdRestaurante" class="form-control" />
-                <span asp-validation-for="IdRestaurante" class="text-danger"></span>
+                <label asp-for="VentaTotal" class="control-label"></label>
+                <input asp-for="VentaTotal" class="form-control" Enable="false" />
+                <span asp-validation-for="VentaTotal" class="text-danger"></span>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Comprar" class="btn btn-outline-primary" />
+                <a asp-action="Index" class="btn btn-outline-warning">Regresar al Listado</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<hr />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiciosRestaurantes.Data;
 
-namespace ServiciosRestaurantes.Data.Migrations
+namespace ServiciosRestaurantes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211212170211_Order2Go")]
+    partial class Order2Go
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,7 +244,12 @@ namespace ServiciosRestaurantes.Data.Migrations
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("RestaurantesIdRestaurante")
+                        .HasColumnType("int");
+
                     b.HasKey("IdProducto");
+
+                    b.HasIndex("RestaurantesIdRestaurante");
 
                     b.ToTable("Producto");
 
@@ -263,18 +270,14 @@ namespace ServiciosRestaurantes.Data.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int?>("ProductoIdProducto")
-                        .HasColumnType("int");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Telefono")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdRestaurante");
-
-                    b.HasIndex("ProductoIdProducto");
 
                     b.ToTable("Restaurante");
                 });
@@ -343,16 +346,18 @@ namespace ServiciosRestaurantes.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ServiciosRestaurantes.Models.Restaurante", b =>
-                {
-                    b.HasOne("ServiciosRestaurantes.Models.Producto", null)
-                        .WithMany("Restaurantes")
-                        .HasForeignKey("ProductoIdProducto");
-                });
-
             modelBuilder.Entity("ServiciosRestaurantes.Models.Producto", b =>
                 {
+                    b.HasOne("ServiciosRestaurantes.Models.Restaurante", "Restaurantes")
+                        .WithMany("Producto")
+                        .HasForeignKey("RestaurantesIdRestaurante");
+
                     b.Navigation("Restaurantes");
+                });
+
+            modelBuilder.Entity("ServiciosRestaurantes.Models.Restaurante", b =>
+                {
+                    b.Navigation("Producto");
                 });
 #pragma warning restore 612, 618
         }

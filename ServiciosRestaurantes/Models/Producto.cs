@@ -17,11 +17,13 @@ namespace ServiciosRestaurantes.Models
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)] 
         public decimal Precio { get; set; }
 
         [Display(Name = "Restaurante")]
         public int IdRestaurante { get; set; }
 
-        public virtual List<Restaurante> Restaurantes { get; set; }
+        public virtual Restaurante Restaurantes { get; set; }
     }
 }
