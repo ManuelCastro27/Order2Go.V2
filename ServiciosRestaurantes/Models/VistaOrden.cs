@@ -8,7 +8,6 @@ namespace ServiciosRestaurantes.Models
     public class VistaOrden
     {
         public Restaurante Restaurante { get; set; }
-        public List<OrdenProducto> Productos { get; set; }
-        public Restaurante Restaurantes { get; internal set; }
+        public ICollection<OrdenProducto> Productos { get; set; }
     }
 }
