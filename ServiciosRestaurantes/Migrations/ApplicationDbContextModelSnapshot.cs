@@ -219,6 +219,69 @@ namespace ServiciosRestaurantes.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ServiciosRestaurantes.Models.DetalleOrden", b =>
+                {
+                    b.Property<int>("IdDetalleOrden")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Cantidad")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdOrden")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProducto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrdenIdOrden")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ProductoIdProducto")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("VentaTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdDetalleOrden");
+
+                    b.HasIndex("OrdenIdOrden");
+
+                    b.HasIndex("ProductoIdProducto");
+
+                    b.ToTable("DetalleOrden");
+                });
+
+            modelBuilder.Entity("ServiciosRestaurantes.Models.Orden", b =>
+                {
+                    b.Property<int>("IdOrden")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("FechaOrden")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdRestaurante")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RestauranteIdRestaurante")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdOrden");
+
+                    b.HasIndex("RestauranteIdRestaurante");
+
+                    b.ToTable("Orden");
+                });
+
             modelBuilder.Entity("ServiciosRestaurantes.Models.Producto", b =>
                 {
                     b.Property<int>("IdProducto")
@@ -280,17 +343,17 @@ namespace ServiciosRestaurantes.Migrations
                     b.ToTable("Restaurante");
                 });
 
-            modelBuilder.Entity("ServiciosRestaurantes.Models.Venta", b =>
+            modelBuilder.Entity("ServiciosRestaurantes.Models.OrdenProducto", b =>
                 {
                     b.HasBaseType("ServiciosRestaurantes.Models.Producto");
 
                     b.Property<float>("Cantidad")
                         .HasColumnType("real");
 
-                    b.Property<float>("VentaTotal")
-                        .HasColumnType("real");
+                    b.Property<decimal>("VentaTotal")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasDiscriminator().HasValue("Venta");
+                    b.HasDiscriminator().HasValue("OrdenProducto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -344,6 +407,30 @@ namespace ServiciosRestaurantes.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ServiciosRestaurantes.Models.DetalleOrden", b =>
+                {
+                    b.HasOne("ServiciosRestaurantes.Models.Orden", "Orden")
+                        .WithMany("DetallesOrden")
+                        .HasForeignKey("OrdenIdOrden");
+
+                    b.HasOne("ServiciosRestaurantes.Models.Producto", "Producto")
+                        .WithMany("DetallesOrden")
+                        .HasForeignKey("ProductoIdProducto");
+
+                    b.Navigation("Orden");
+
+                    b.Navigation("Producto");
+                });
+
+            modelBuilder.Entity("ServiciosRestaurantes.Models.Orden", b =>
+                {
+                    b.HasOne("ServiciosRestaurantes.Models.Restaurante", "Restaurante")
+                        .WithMany("Orden")
+                        .HasForeignKey("RestauranteIdRestaurante");
+
+                    b.Navigation("Restaurante");
+                });
+
             modelBuilder.Entity("ServiciosRestaurantes.Models.Producto", b =>
                 {
                     b.HasOne("ServiciosRestaurantes.Models.Restaurante", "Restaurantes")
@@ -353,8 +440,20 @@ namespace ServiciosRestaurantes.Migrations
                     b.Navigation("Restaurantes");
                 });
 
+            modelBuilder.Entity("ServiciosRestaurantes.Models.Orden", b =>
+                {
+                    b.Navigation("DetallesOrden");
+                });
+
+            modelBuilder.Entity("ServiciosRestaurantes.Models.Producto", b =>
+                {
+                    b.Navigation("DetallesOrden");
+                });
+
             modelBuilder.Entity("ServiciosRestaurantes.Models.Restaurante", b =>
                 {
+                    b.Navigation("Orden");
+
                     b.Navigation("Producto");
                 });
 #pragma warning restore 612, 618

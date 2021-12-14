@@ -9,12 +9,16 @@ namespace ServiciosRestaurantes.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
         public DbSet<Restaurante> Restaurante { get; set; }
         public DbSet<Producto> Producto { get; set; }
-        public DbSet<Venta> Venta { get; set; }
+        public DbSet<OrdenProducto> Venta { get; set; }
     }
 }

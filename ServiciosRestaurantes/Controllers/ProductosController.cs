@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -46,7 +44,10 @@ namespace ServiciosRestaurantes.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewBag.restaurantes = new SelectList(_context.Restaurante, "IdRestaurante", "Nombre");
+            var lista = _context.Restaurante.ToList();
+            lista.Add(new Restaurante { IdRestaurante = 0, Nombre = "[Seleccione un Restaurante...]" });
+            lista = lista.OrderBy(c => c.Nombre).ToList();
+            ViewBag.restaurantes = new SelectList(lista, "IdRestaurante", "Nombre");
             return View();
         }
 

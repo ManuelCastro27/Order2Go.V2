@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ServiciosRestaurantes.Models
 {
-    public class Venta : Producto
+    public class OrdenProducto : Producto
     {
         [DataType(DataType.Currency)]
         [Required(ErrorMessage = "Debe ingresar la {0}")]
@@ -16,6 +16,6 @@ namespace ServiciosRestaurantes.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         [Display(Name = "Total Venta")]
-        public float VentaTotal { get { return (float)(Precio * (decimal)Cantidad); } set { }}
+        public decimal VentaTotal { get { return (Precio * (decimal)Cantidad); } set { }}
     }
 }

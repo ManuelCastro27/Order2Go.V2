@@ -25,5 +25,6 @@ namespace ServiciosRestaurantes.Models
         public int IdRestaurante { get; set; }
 
         public virtual Restaurante Restaurantes { get; set; }
+        public virtual ICollection<DetalleOrden> DetallesOrden { get; set; }
     }
 }

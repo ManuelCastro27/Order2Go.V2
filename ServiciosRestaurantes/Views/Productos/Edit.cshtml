@@ -1,15 +1,19 @@
 ﻿@model ServiciosRestaurantes.Models.Producto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Actualizar Producto";
 }
-
-<h1>Edit</h1>
-
-<h4>Producto</h4>
+<div class="row">
+    <div class="col-sm-4">
+        <h2>Actualizar los datos del:</h2>
+    </div>
+    <div class="col-sm-8">
+        <h2>Producto @Model.Nombre</h2>
+    </div>
+</div>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdProducto" />
@@ -65,16 +69,15 @@
                     </div>
                 </div>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Actualizar" class="btn btn-outline-primary" />
+                <a asp-action="Index" class="btn btn-outline-warning">Regresar al listado</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<hr />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

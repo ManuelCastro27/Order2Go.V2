@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Eliminar Restaurante";
 }
-
 <h1>Eliminar Restaurante @Model.Nombre</h1>
 <hr />
 <h3>Esta seguro de que desea eliminar este?</h3>
@@ -33,7 +32,7 @@
     <hr />
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdRestaurante" />
-        <input type="submit" value="Eliminar" class="btn btn-outline-primary" />
+        <input type="submit" value="Eliminar" class="btn btn-outline-danger" />
         <a asp-action="Index" class="btn btn-outline-warning">Regresar al listado</a>
     </form>
 </div>

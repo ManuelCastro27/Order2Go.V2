@@ -28,5 +28,6 @@ namespace ServiciosRestaurantes.Models
         public string Telefono { get; set; }
 
         public virtual ICollection<Producto> Producto { get; set; }
+        public virtual ICollection<Orden> Orden { get; set; }
     }
 }
